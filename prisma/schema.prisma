@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique
+  password String
+  isAdmin  Boolean  @default(false)
+  dateOfBirth      DateTime?
+}
+
+model Category {
+  id           Int      @id @default(autoincrement())
+  categoryName String   @unique
+}
+
+model Movie {
+  id             Int        @id @default(autoincrement())
+  name           String     @unique
+  hero           String?
+  heroine        String?
+  director       String?
+  producer       String?
+  thumbnail      String
+  categories     Int[]
+  movieUrl       String
+  isFeatured     Boolean    @default(false)
+  description    String?
+  rating         Float      @default(0) 
+  requestedForCategory      RequestType @default(NO)
+}
+
+enum RequestType {
+  NO
+  YES
+  DONE
+}
