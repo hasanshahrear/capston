@@ -4,7 +4,8 @@ import { z } from "zod";
 const prisma = new PrismaClient();
 
 const movieSchema = z.object({
-  name: z.string().min(3),
+  id: z.number().int(),
+  name: z.string(),
   hero: z.string().optional(),
   heroine: z.string().optional(),
   director: z.string().optional(),
@@ -15,7 +16,7 @@ const movieSchema = z.object({
   isFeatured: z.boolean(),
   description: z.string().optional(),
   rating: z.number(),
-  requestedForCategory: z.string(),
+  requestedForCategory: z.enum(["NO", "YES", "DONE"]),
 });
 
 export async function POST(req: Request) {
@@ -28,15 +29,8 @@ export async function POST(req: Request) {
       throw new Error("categoryId must be an array of numbers");
     }
 
-    const dataWithSingleCategoryId = {
-      ...validatedData,
-      categoryId: validatedData.categories,
-    };
-
-    console.log({ validatedData });
-
     const newMovie = await prisma.movie.create({
-      data: movieData,
+      data: validatedData,
     });
 
     const response = {
