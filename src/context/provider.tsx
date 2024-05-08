@@ -6,7 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { SessionProvider } from "next-auth/react";
 import "primeicons/primeicons.css";
 import { PrimeReactProvider } from "primereact/api";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/themes/lara-light-blue/theme.css";
 import { PropsWithChildren } from "react";
 import { Toaster } from "sonner";
 
